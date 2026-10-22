@@ -1,0 +1,5 @@
+.env
+marketing/sent_log.json
+marketing/optouts.json
+marketing/prospects.json
+marketing/outreach.json
