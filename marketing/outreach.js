@@ -27,7 +27,7 @@ const out = prospects.map((p) => {
   cfg.email = p.email;
   cfg.services = cfg.services.slice(0, 3);
   // Short, clean URL: a per-business page under q/<slug>/ that mounts the widget.
-  const slug = p.name.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const slug = p.name.toLowerCase().replace(/['’]/g, "").replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   const dir = path.join(__dirname, "..", "q", slug);
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, "index.html"),
@@ -40,7 +40,7 @@ const out = prospects.map((p) => {
   const body = [
     "Hi,",
     "",
-    `I came across ${p.name} while looking at ${p.trade === "holiday_lights" ? "holiday lighting" : "exterior cleaning"} companies in ${p.city_state}, and noticed ${p.detail}. Your site asks people to reach out for a quote, so I set up a free page where homeowners can ${PITCH[p.trade]} and send you the request with their address:`,
+    `We came across ${p.name} while looking at ${p.trade === "holiday_lights" ? "holiday lighting" : "exterior cleaning"} companies in ${p.city_state}, and noticed ${p.detail}. Your site asks people to reach out for a quote, so we set up a free page where homeowners can ${PITCH[p.trade]} and send you the request with their address:`,
     "",
     link,
     "",
@@ -52,7 +52,7 @@ const out = prospects.map((p) => {
     SITE,
     process.env.QP_POSTAL || "[postal address required by CAN-SPAM]",
     "",
-    "P.S. Not interested? Just reply \"no\" and I won't email again.",
+    "P.S. Not interested? Just reply \"no\" and we won't email again.",
   ].join("\n");
   return { ...p, link, subject, body };
 });
