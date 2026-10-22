@@ -48,7 +48,9 @@ const out = prospects.map((p) => {
     "",
     "Hope it's useful either way.",
     "",
-    "Rishabh",
+    "The QuotePane team",
+    SITE,
+    process.env.QP_POSTAL || "[postal address required by CAN-SPAM]",
     "",
     "P.S. Not interested? Just reply \"no\" and I won't email again.",
   ].join("\n");
