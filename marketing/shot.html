@@ -1,0 +1,34 @@
+<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="../style.css">
+<style>
+body{margin:0;background:linear-gradient(135deg,#0e7490,#0b4f63);color:#fff;overflow:hidden}
+.frame{width:var(--w);height:var(--h);display:flex;align-items:center;gap:48px;padding:56px;box-sizing:border-box}
+.frame.col{flex-direction:column;justify-content:center;gap:28px;text-align:center}
+h1{font-size:var(--fs);margin:0 0 14px;line-height:1.08}
+p{font-size:calc(var(--fs)*.42);margin:0;opacity:.9}
+.logo{color:#fff;font-size:26px;margin-bottom:22px}.logo i{background:#fff}.logo i::after{border-color:#0e7490;border-right-color:transparent;border-bottom-color:transparent}
+.w{flex:0 0 auto;width:var(--ww)}
+.price{display:inline-block;margin-top:22px;background:#f59e0b;color:#1f1300;font-weight:800;border-radius:999px;padding:10px 20px;font-size:calc(var(--fs)*.4)}
+</style>
+<div class="frame" id="f"><div id="t"></div><div class="w"><div id="w"></div></div></div>
+<script src="../widget.js"></script><script src="../templates.js"></script>
+<script>
+const P=new URLSearchParams(location.search);const v=P.get("v");
+const S={cover:{w:1280,h:720,fs:54,ww:470,col:0},thumb:{w:600,h:600,fs:40,ww:0,col:1},
+ ig1:{w:1080,h:1080,fs:84,ww:0,col:1},ig2:{w:1080,h:1080,fs:60,ww:620,col:1,pick:0},ig3:{w:1080,h:1080,fs:60,ww:620,col:1,pick:2},ig4:{w:1080,h:1080,fs:60,ww:620,col:1,pick:3},ig5:{w:1080,h:1080,fs:80,ww:0,col:1}}[v];
+const T={cover:['Stop driving out to quote.','Customers price their own job on your website in 30 seconds. Leads land in your inbox.','$29 one-time · free for 3 services'],
+ thumb:['Instant quotes for service pros','Pressure washing · windows · gutters · lights','$29 one-time'],
+ ig1:['Stop driving out to quote.','For pressure washing, window, gutter & holiday-light pros',''],
+ ig2:['Customers pick services + size','',''],ig3:['They see a price instantly','',''],ig4:['You get the lead in your inbox','',''],
+ ig5:['Free for 3 services.','$29 one-time for Pro. No monthly fee.','Link in bio']}[v];
+const f=document.getElementById("f");f.style.setProperty("--w",S.w+"px");f.style.setProperty("--h",S.h+"px");f.style.setProperty("--fs",S.fs+"px");f.style.setProperty("--ww",S.ww+"px");
+if(S.col)f.classList.add("col");
+document.getElementById("t").innerHTML='<div class="logo" style="justify-content:'+(S.col?'center':'flex-start')+'"><span class="logo" style="margin:0"><i></i>QuotePane</span></div><h1>'+T[0]+'</h1>'+(T[1]?'<p>'+T[1]+'</p>':'')+(T[2]?'<span class="price">'+T[2]+'</span>':'');
+if(S.ww){const c=JSON.parse(JSON.stringify(QP_TEMPLATES[0].config));c.demo=true;c.color="#0e7490";c.services=c.services.slice(0,3);QuotePane.mount("#w",c);
+ const r=()=>document.querySelector("#w > div").shadowRoot;
+ const tick=(i,val)=>{const cb=r().querySelector('[data-c="'+i+'"]');cb.checked=true;cb.dispatchEvent(new Event("change"));const q=r().querySelector('[data-q="'+i+'"]');q.value=val;q.dispatchEvent(new Event("input"));};
+ if(v==="cover"||S.pick>=1){tick(0,"2500");}
+ if(v==="cover"||S.pick>=2){tick(1,"600");}
+ if(S.pick===3){r().querySelector("[data-next]").click();const fm=r().querySelector("[data-form]");fm.elements.name.value="Dana R.";fm.elements.phone.value="(813) 555-0142";fm.elements.address.value="418 Palm Ave, Tampa FL";}
+ if(S.pick===0){const cb=r().querySelector('[data-c="0"]');cb.checked=true;cb.dispatchEvent(new Event("change"));}
+}else document.querySelector(".w").remove();
+</script>
