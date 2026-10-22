@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Instant Quote</title>
+<meta name="robots" content="noindex">
+<style>
+  body { margin: 0; background: #f1f5f9; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: #0f172a; }
+  main { padding: 28px 16px 48px; }
+  .missing { max-width: 480px; margin: 60px auto; text-align: center; }
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script src="widget.js"></script>
+<script>
+  (function () {
+    var m = location.hash.match(/c=([^&]+)/);
+    var app = document.getElementById("app");
+    if (!m) {
+      app.innerHTML = '<div class="missing"><h2>No quote form here</h2><p>This link is missing its settings. Make your own at <a href="./builder.html">QuotePane</a>.</p></div>';
+      return;
+    }
+    try {
+      var cfg = QuotePane.decode(m[1]);
+      if (cfg.biz) document.title = "Instant quote: " + cfg.biz;
+      QuotePane.mount(app, cfg);
+    } catch (e) {
+      app.innerHTML = '<div class="missing"><h2>This quote link is damaged</h2><p>Ask the business for a fresh link.</p></div>';
+    }
+  })();
+</script>
+</body>
+</html>

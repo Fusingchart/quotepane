@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QuotePane: Instant Quotes for Service Businesses</title>
+<meta name="description" content="Let customers price their own pressure washing, window cleaning, gutter or holiday-light job on your website in 30 seconds. Leads land in your inbox. Free to start, $29 one-time for Pro.">
+<meta property="og:title" content="QuotePane: instant quotes for service businesses">
+<meta property="og:description" content="Customers price their own job on your site in 30 seconds. Free to start, $29 one-time Pro. No monthly fee.">
+<link rel="stylesheet" href="style.css">
+<style>
+  .hero { padding: 56px 0 40px; background: linear-gradient(180deg, #ecf7fa 0%, #fff 100%); }
+  .hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; }
+  .hero h1 { font-size: clamp(32px, 5vw, 48px); margin: 0 0 16px; }
+  .hero p.lead { font-size: 19px; color: var(--muted); margin: 0 0 24px; max-width: 34em; }
+  .hero .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .pill { display: inline-block; font-size: 13px; font-weight: 700; color: var(--brand); background: #fff; border: 1px solid #bfe3ec; border-radius: 999px; padding: 4px 12px; margin-bottom: 16px; }
+  .fine { font-size: 14px; color: var(--muted); margin-top: 14px; }
+  section.block { padding: 56px 0 0; }
+  section.block h2 { font-size: clamp(26px, 3.5vw, 34px); margin: 0 0 10px; }
+  .cols3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
+  .num { width: 34px; height: 34px; border-radius: 50%; background: var(--brand); color: #fff; font-weight: 800; display: grid; place-items: center; margin-bottom: 10px; }
+  .card h3 { margin: 0 0 6px; font-size: 18px; }
+  .card p { margin: 0; color: var(--muted); }
+  .niches { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .niches span { background: var(--soft); border-radius: 999px; padding: 6px 14px; font-size: 15px; }
+  .why { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+  .price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; max-width: 820px; }
+  .price-card { padding: 26px; }
+  .price-card.pro { border: 2px solid var(--brand); position: relative; }
+  .price-card .amt { font-size: 40px; font-weight: 800; margin: 6px 0 2px; }
+  .price-card .amt small { font-size: 16px; font-weight: 600; color: var(--muted); }
+  .price-card ul { padding: 0; margin: 16px 0 22px; list-style: none; }
+  .price-card li { padding: 6px 0 6px 26px; position: relative; }
+  .price-card li::before { content: "✓"; position: absolute; left: 0; color: var(--brand); font-weight: 800; }
+  .price-card .btn { width: 100%; text-align: center; }
+  .ribbon { position: absolute; top: -12px; right: 18px; background: var(--brand); color: #fff; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px; }
+  .compare { margin-top: 20px; border-collapse: collapse; width: 100%; max-width: 820px; font-size: 15px; }
+  .compare th, .compare td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+  .compare th { font-size: 13px; color: var(--muted); font-weight: 600; }
+  .compare td.us { font-weight: 700; color: var(--brand); }
+  details { border-bottom: 1px solid var(--line); padding: 14px 0; max-width: 820px; }
+  summary { font-weight: 700; cursor: pointer; }
+  details p { color: var(--muted); margin: 8px 0 0; }
+  @media (max-width: 860px) {
+    .hero .wrap, .why, .price-grid { grid-template-columns: 1fr; }
+    .cols3 { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) { .compare { font-size: 13px; } .compare th, .compare td { padding: 8px 6px; } }
+</style>
+</head>
+<body>
+<header class="nav"><div class="wrap">
+  <a class="logo" href="./"><i></i>QuotePane</a>
+  <nav class="nav-links"><a href="#how">How it works</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a><a class="btn small" href="builder.html">Build my widget</a></nav>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <div>
+    <span class="pill">For pressure washing, window, gutter &amp; lighting pros</span>
+    <h1>Stop driving out to quote. Let customers price the job themselves.</h1>
+    <p class="lead">QuotePane puts an instant-quote form on your website, or behind a link in your Google profile. Homeowners pick services, enter their size and see a price. You get the lead with their address and a full breakdown.</p>
+    <div class="actions"><a class="btn" href="builder.html">Build yours free, 2 min</a><a class="btn ghost" href="#pricing">See pricing</a></div>
+    <p class="fine">No signup. No monthly fee. Works with WordPress, Wix, Squarespace, GoDaddy, or no website at all.</p>
+  </div>
+  <div><div id="demo"></div><p class="fine" style="text-align:center">↑ Live demo. Try it.</p></div>
+</div></section>
+
+<main class="wrap">
+  <section class="block" id="how">
+    <h2>Set up before your coffee gets cold</h2>
+    <div class="cols3">
+      <div class="card"><div class="num">1</div><h3>Set your prices</h3><p>Start from a template for your trade and change the rates: per sq ft, per window, per linear foot, per item or flat.</p></div>
+      <div class="card"><div class="num">2</div><h3>Paste one line</h3><p>Copy the code onto your website, or share the quote link and QR code on Google, Facebook, Nextdoor and door hangers.</p></div>
+      <div class="card"><div class="num">3</div><h3>Get priced leads</h3><p>Every request lands in your inbox with name, phone, address, services and the estimate they already agreed to.</p></div>
+    </div>
+    <div class="niches"><span>Pressure washing</span><span>Soft washing</span><span>Window cleaning</span><span>Gutter cleaning</span><span>Holiday light installs</span><span>House cleaning</span><span>Lawn care</span><span>Any per-unit service</span></div>
+  </section>
+
+  <section class="block">
+    <h2>Why an instant price wins the job</h2>
+    <div class="why">
+      <div class="card"><h3>Homeowners want a number now</h3><p>"Call for a quote" makes people shop around. A price on the spot catches them while they're ready to book.</p></div>
+      <div class="card"><h3>Fewer tire-kicker site visits</h3><p>People who see your price and still request a booking are already fine with it. You spend your evenings on real jobs.</p></div>
+      <div class="card"><h3>Your prices, your rules</h3><p>Minimum job charge, per-service minimums, a ± range so you keep wiggle room, and bundle discounts that push bigger tickets.</p></div>
+      <div class="card"><h3>Nothing new to learn</h3><p>No CRM, no app, no login. Leads come to the email you already check.</p></div>
+    </div>
+  </section>
+
+  <section class="block" id="pricing">
+    <h2>Pay once. Not every month.</h2>
+    <p class="muted" style="margin:0">Instant-quote features in field-service software usually come inside plans that cost $50–$180+ a month.</p>
+    <div class="price-grid">
+      <div class="card price-card">
+        <h3>Free</h3>
+        <div class="amt">$0</div>
+        <ul>
+          <li>Up to 3 services</li>
+          <li>Website widget + shareable link + QR code</li>
+          <li>Leads emailed to you</li>
+          <li>Small "Instant quotes by QuotePane" link</li>
+        </ul>
+        <a class="btn ghost" href="builder.html">Start free</a>
+      </div>
+      <div class="card price-card pro">
+        <span class="ribbon">Most popular</span>
+        <h3>Pro</h3>
+        <div class="amt"><span data-price>$29</span> <small>one-time</small></div>
+        <ul>
+          <li>Unlimited services</li>
+          <li>No QuotePane branding</li>
+          <li>Multi-service bundle discounts</li>
+          <li>Custom thank-you message</li>
+          <li>All future updates</li>
+          <li>14-day money-back guarantee</li>
+        </ul>
+        <a class="btn cta" id="buyPro" href="builder.html">Get Pro for <span data-price>$29</span></a>
+      </div>
+    </div>
+    <table class="compare">
+      <tr><th></th><th>QuotePane Pro</th><th>Typical quoting software</th></tr>
+      <tr><td>Cost, first year</td><td class="us"><span data-price>$29</span> total</td><td>$600–$2,100+</td></tr>
+      <tr><td>Setup time</td><td class="us">~2 minutes</td><td>Onboarding calls, CRM setup</td></tr>
+      <tr><td>Works without a website</td><td class="us">Yes, quote link + QR</td><td>Varies</td></tr>
+    </table>
+  </section>
+
+  <section class="block" id="faq">
+    <h2>Questions</h2>
+    <details><summary>Where do the leads go?</summary><p>To the email you enter in the builder, via FormSubmit. The very first request sends you a one-time "activate" email. Click it once and every lead after that arrives straight away.</p></details>
+    <details><summary>Will it work on my Wix / Squarespace / WordPress / GoDaddy site?</summary><p>Yes. Paste the one-line code into an "Embed code", "Custom HTML" or "Code" block. No website? Use the quote link instead.</p></details>
+    <details><summary>Can I change my prices later?</summary><p>Yes. The builder remembers your settings on your device. Edit, then re-paste the code or re-share the link.</p></details>
+    <details><summary>Are the prices binding?</summary><p>The widget calls it an estimate and says you'll confirm the final price. You can also show a ± range for extra room.</p></details>
+    <details><summary>How do I unlock Pro?</summary><p>Buy Pro, then paste the license key from your receipt email into the builder. Pro features switch on immediately.</p></details>
+    <details><summary>What if it's not for me?</summary><p>Email within 14 days for a full refund. No questions.</p></details>
+  </section>
+</main>
+
+<footer><div class="wrap"><span>© 2026 QuotePane</span><span><a href="builder.html">Builder</a> · <a href="#pricing">Pricing</a> · <a href="#faq">FAQ</a></span></div></footer>
+
+<script src="config.js"></script>
+<script src="widget.js"></script>
+<script src="templates.js"></script>
+<script>
+  var demo = JSON.parse(JSON.stringify(QP_TEMPLATES[0].config));
+  demo.demo = true;
+  demo.color = "#0e7490";
+  demo.services = demo.services.slice(0, 3);
+  QuotePane.mount("#demo", demo);
+  document.querySelectorAll("[data-price]").forEach(function (el) { el.textContent = "$" + QP_STORE.price; });
+  if (QP_STORE.checkoutUrl) document.getElementById("buyPro").href = QP_STORE.checkoutUrl;
+</script>
+</body>
+</html>

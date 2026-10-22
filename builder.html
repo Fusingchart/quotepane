@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QuotePane Builder</title>
+<meta name="description" content="Set your prices and get an instant-quote widget for your website, plus a shareable quote link.">
+<link rel="stylesheet" href="style.css">
+<style>
+  main { padding: 28px 0 0; }
+  .grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+  .preview { position: sticky; top: 80px; }
+  h1 { font-size: 28px; margin: 0 0 6px; }
+  h3 { font-size: 16px; margin: 0 0 12px; }
+  .card + .card { margin-top: 16px; }
+  label.f { display: block; font-size: 13px; font-weight: 600; margin: 0 0 4px; }
+  input, select, textarea { font: inherit; width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 9px 11px; background: #fff; color: var(--ink); }
+  input[type=color] { padding: 2px; height: 40px; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .three { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .field { margin-bottom: 12px; }
+  .svc-row { border: 1px solid var(--line); border-radius: 10px; padding: 12px; margin-bottom: 10px; background: var(--soft); }
+  .svc-row .head { display: grid; grid-template-columns: 1fr 120px 92px 32px; gap: 8px; align-items: end; }
+  .svc-row .more { display: grid; grid-template-columns: 92px 1fr; gap: 8px; margin-top: 8px; }
+  .x { border: 0; background: none; font-size: 20px; color: var(--muted); cursor: pointer; height: 40px; }
+  .x:hover { color: #b42318; }
+  .locked { opacity: .55; }
+  .tag { display: inline-block; font-size: 11px; font-weight: 700; background: #fef3c7; color: #92400e; border-radius: 999px; padding: 2px 8px; margin-left: 6px; vertical-align: middle; }
+  .hint { font-size: 12px; color: var(--muted); margin: 4px 0 0; }
+  pre { background: #0f172a; color: #e2e8f0; border-radius: 10px; padding: 12px; font-size: 12px; white-space: pre-wrap; word-break: break-all; margin: 0; max-height: 140px; overflow: auto; }
+  .out-actions { display: flex; gap: 8px; margin: 10px 0 18px; flex-wrap: wrap; }
+  .templates { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
+  .templates button { border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 6px 12px; font: inherit; font-size: 14px; cursor: pointer; }
+  .templates button:hover { border-color: var(--brand); }
+  #qr { display: inline-block; background: #fff; padding: 8px; border: 1px solid var(--line); border-radius: 8px; }
+  .status { font-size: 13px; margin-top: 6px; }
+  .ok { color: #067647; } .bad { color: #b42318; }
+  @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } .preview { position: static; } }
+  @media (max-width: 520px) {
+    .two, .three { grid-template-columns: 1fr; }
+    .svc-row .head { grid-template-columns: 1fr 1fr 32px; }
+    .svc-row .head > :first-child { grid-column: 1 / -1; }
+  }
+</style>
+</head>
+<body>
+<header class="nav"><div class="wrap">
+  <a class="logo" href="./"><i></i>QuotePane</a>
+  <nav class="nav-links"><a href="./#how">How it works</a><a href="./#pricing">Pricing</a><a class="btn small" href="builder.html">Build my widget</a></nav>
+</div></header>
+
+<main class="wrap">
+  <h1>Build your instant-quote widget</h1>
+  <p class="muted" style="margin:0 0 22px">Set your prices, watch the preview, then copy the code onto your site or share the link. Free, no signup.</p>
+
+  <div class="grid">
+    <div>
+      <section class="card">
+        <h3>1. Start from a template</h3>
+        <div class="templates" id="templates"></div>
+      </section>
+
+      <section class="card">
+        <h3>2. Your business</h3>
+        <div class="two">
+          <div class="field"><label class="f" for="biz">Business name</label><input id="biz" placeholder="Sparkle Pressure Washing"></div>
+          <div class="field"><label class="f" for="area">Service area (optional)</label><input id="area" placeholder="Serving Tampa Bay"></div>
+        </div>
+        <div class="two">
+          <div class="field"><label class="f" for="email">Email for new leads</label><input id="email" type="email" placeholder="you@business.com">
+            <p class="hint">The first request triggers a one-time "activate" email. Click it and later leads arrive straight away.</p></div>
+          <div class="field"><label class="f" for="phone">Phone (shown if sending fails)</label><input id="phone" type="tel" placeholder="(555) 123-4567"></div>
+        </div>
+        <div class="three">
+          <div class="field"><label class="f" for="color">Brand color</label><input id="color" type="color" value="#0e7490"></div>
+          <div class="field"><label class="f" for="min">Minimum job ($)</label><input id="min" type="number" min="0" step="1"></div>
+          <div class="field"><label class="f" for="spread">Show range ± %</label><input id="spread" type="number" min="0" max="50" step="1">
+          </div>
+        </div>
+        <div class="two">
+          <div class="field"><label class="f" for="title">Widget heading</label><input id="title" placeholder="Get an instant quote"></div>
+          <div class="field"><label class="f" for="currency">Currency symbol</label><input id="currency" maxlength="3" placeholder="$"></div>
+        </div>
+        <label style="display:flex;gap:8px;align-items:center;font-size:14px"><input id="hideRates" type="checkbox" style="width:auto"> Hide per-unit rates (show only the total)</label>
+      </section>
+
+      <section class="card">
+        <h3>3. Services &amp; prices</h3>
+        <div id="services"></div>
+        <button class="btn ghost small" id="add">+ Add service</button>
+        <p class="hint" id="freeNote">Free plan shows your first 3 services. Pro unlocks unlimited.</p>
+      </section>
+
+      <section class="card" id="proCard">
+        <h3>4. Pro <span class="tag">ONE-TIME</span></h3>
+        <p class="muted" style="margin:0 0 12px;font-size:14px">Unlimited services, no "QuotePane" badge, multi-service discounts, and your own thank-you message. One payment, yours forever.</p>
+        <div class="field"><label class="f" for="license">License key</label>
+          <div style="display:flex;gap:8px"><input id="license" placeholder="XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX"><button class="btn small" id="verify">Unlock</button></div>
+          <div class="status" id="licStatus"></div>
+        </div>
+        <div id="proFields" class="locked">
+          <div class="two">
+            <div class="field"><label class="f" for="bundleN">Discount when booking</label><select id="bundleN"><option value="2">2+ services</option><option value="3">3+ services</option><option value="4">4+ services</option></select></div>
+            <div class="field"><label class="f" for="bundlePct">Discount %</label><input id="bundlePct" type="number" min="0" max="50" placeholder="10"></div>
+          </div>
+          <div class="field"><label class="f" for="thanks">Thank-you message</label><input id="thanks" placeholder="Thanks! We'll text you within the hour to lock in your date."></div>
+        </div>
+        <a class="btn cta small" id="buy" href="./#pricing" style="margin-top:6px">Get Pro</a>
+      </section>
+    </div>
+
+    <div class="preview">
+      <div id="preview"></div>
+      <section class="card" style="margin-top:18px">
+        <h3>Put it on your website</h3>
+        <p class="hint" style="margin:-6px 0 8px">Paste into any page: WordPress (Custom HTML block), Wix (Embed code), Squarespace (Code block), GoDaddy (HTML section) or plain HTML.</p>
+        <pre id="embed"></pre>
+        <div class="out-actions"><button class="btn small" data-copy="embed">Copy code</button></div>
+
+        <h3>No website? Share a quote link</h3>
+        <p class="hint" style="margin:-6px 0 8px">Add it to your Google Business Profile, Facebook page, Instagram bio, Nextdoor or texts. Print the QR on flyers and door hangers.</p>
+        <pre id="link"></pre>
+        <div class="out-actions"><button class="btn small" data-copy="link">Copy link</button><a class="btn ghost small" id="open" target="_blank" rel="noopener">Open</a><button class="btn ghost small" id="qrBtn">Show QR code</button></div>
+        <div id="qrBox" hidden><div id="qr"></div></div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer><div class="wrap"><span>QuotePane: instant quotes for service businesses.</span><span><a href="./">Home</a> · <a href="./#faq">FAQ</a></span></div></footer>
+
+<script src="config.js"></script>
+<script src="widget.js"></script>
+<script src="templates.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+(function () {
+  var BASE = location.href.replace(/[^/]*([?#].*)?$/, "");
+  var UNIT_OPTS = [["sqft", "per sq ft"], ["linft", "per linear ft"], ["pane", "per window"], ["item", "per item"], ["hour", "per hour"], ["flat", "flat price"]];
+  var KEY = "quotepane.builder.v1";
+  var $ = function (id) { return document.getElementById(id); };
+  var state;
+
+  function load() {
+    var fromHash = location.hash.match(/c=([^&]+)/);
+    if (fromHash) { try { return QuotePane.decode(fromHash[1]); } catch (e) {} }
+    try { var s = localStorage.getItem(KEY); if (s) return JSON.parse(s); } catch (e) {}
+    return JSON.parse(JSON.stringify(QP_TEMPLATES[0].config));
+  }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+
+  var FIELDS = ["biz", "area", "email", "phone", "color", "min", "spread", "title", "currency", "thanks"];
+  function fillForm() {
+    FIELDS.forEach(function (k) { $(k).value = state[k] != null ? state[k] : (k === "color" ? "#0e7490" : ""); });
+    $("bundleN").value = (state.bundle && state.bundle.n) || 2;
+    $("bundlePct").value = (state.bundle && state.bundle.pct) || "";
+    $("license").value = state.pro || "";
+    $("hideRates").checked = !!state.hideRates;
+    setPro(!!state.pro);
+    drawServices();
+  }
+
+  function readForm() {
+    FIELDS.forEach(function (k) {
+      var v = $(k).value.trim();
+      if (v === "") delete state[k];
+      else state[k] = k === "min" || k === "spread" ? Number(v) : v;
+    });
+    if ($("hideRates").checked) state.hideRates = true; else delete state.hideRates;
+    var pct = Number($("bundlePct").value);
+    if (pct > 0) state.bundle = { n: Number($("bundleN").value), pct: pct }; else delete state.bundle;
+  }
+
+  function drawServices() {
+    var box = $("services");
+    box.innerHTML = "";
+    (state.services || []).forEach(function (s, i) {
+      var row = document.createElement("div");
+      row.className = "svc-row" + (!state.pro && i >= 3 ? " locked" : "");
+      var opts = UNIT_OPTS.map(function (o) { return '<option value="' + o[0] + '"' + (o[0] === s.u ? " selected" : "") + ">" + o[1] + "</option>"; }).join("");
+      var presets = (s.p || []).map(function (p) { return p.l + "=" + p.v; }).join(", ");
+      row.innerHTML =
+        '<div class="head"><div><label class="f">Service</label><input data-k="n" value=""></div>' +
+        '<div><label class="f">Priced</label><select data-k="u">' + opts + "</select></div>" +
+        '<div><label class="f">Rate ($)</label><input data-k="r" type="number" min="0" step="0.01"></div>' +
+        '<button class="x" title="Remove" aria-label="Remove service">×</button></div>' +
+        '<div class="more"><div><label class="f">Min ($)</label><input data-k="m" type="number" min="0" step="1"></div>' +
+        '<div><label class="f">Quick picks (optional)</label><input data-k="p" placeholder="1-car=300, 2-car=500"></div></div>';
+      row.querySelector('[data-k="n"]').value = s.n || "";
+      row.querySelector('[data-k="r"]').value = s.r != null ? s.r : "";
+      row.querySelector('[data-k="m"]').value = s.m || "";
+      row.querySelector('[data-k="p"]').value = presets;
+      row.querySelector('[data-k="p"]').disabled = s.u === "flat";
+      row.querySelectorAll("[data-k]").forEach(function (el) {
+        el.addEventListener("input", function () {
+          var k = el.getAttribute("data-k");
+          if (k === "r" || k === "m") { if (el.value === "") delete s[k]; else s[k] = Number(el.value); }
+          else if (k === "p") s.p = parsePresets(el.value);
+          else s[k] = el.value;
+          if (k === "u") { row.querySelector('[data-k="p"]').disabled = s.u === "flat"; if (s.u === "flat") delete s.p; }
+          update();
+        });
+      });
+      row.querySelector(".x").addEventListener("click", function () { state.services.splice(i, 1); drawServices(); update(); });
+      box.appendChild(row);
+    });
+    $("freeNote").hidden = !!state.pro;
+  }
+
+  function parsePresets(text) {
+    var out = text.split(",").map(function (part) {
+      var kv = part.split("=");
+      var l = (kv[0] || "").trim(), v = Number((kv[1] || "").trim());
+      return l && v > 0 ? { l: l, v: v } : null;
+    }).filter(Boolean);
+    return out.length ? out : undefined;
+  }
+
+  function clean() {
+    var c = JSON.parse(JSON.stringify(state));
+    c.v = 1;
+    c.services = (c.services || []).filter(function (s) { return s.n && s.r >= 0; });
+    if (!c.pro) { delete c.bundle; delete c.thanks; }
+    return c;
+  }
+
+  function update() {
+    readForm();
+    save();
+    var c = clean();
+    QuotePane.mount("#preview", Object.assign({}, c, { demo: true }));
+    var enc = QuotePane.encode(c);
+    $("embed").textContent = '<script src="' + BASE + 'widget.js" data-config="' + enc + '"><\/script>';
+    var link = BASE + "quote.html#c=" + enc;
+    $("link").textContent = link;
+    $("open").href = link;
+    if (!$("qrBox").hidden) drawQR(link);
+  }
+
+  function drawQR(text) {
+    var el = $("qr");
+    el.innerHTML = "";
+    if (window.QRCode) new QRCode(el, { text: text, width: 200, height: 200, correctLevel: QRCode.CorrectLevel.L });
+    else el.textContent = "QR library didn't load.";
+  }
+
+  function setPro(on) {
+    $("proFields").classList.toggle("locked", !on);
+    $("proFields").querySelectorAll("input,select").forEach(function (el) { el.disabled = !on; });
+    $("buy").hidden = on;
+  }
+
+  function verify() {
+    var key = $("license").value.trim();
+    var st = $("licStatus");
+    if (!key) { st.className = "status bad"; st.textContent = "Paste the license key from your purchase email."; return; }
+    if (!QP_STORE.productId) { st.className = "status bad"; st.textContent = "Pro checkout opens soon."; return; }
+    st.className = "status"; st.textContent = "Checking…";
+    var body = new URLSearchParams({ product_id: QP_STORE.productId, license_key: key, increment_uses_count: "false" });
+    fetch("https://api.gumroad.com/v2/licenses/verify", { method: "POST", body: body })
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        var p = j.purchase || {};
+        if (j.success && !p.refunded && !p.chargebacked && !p.disputed) {
+          state.pro = key; st.className = "status ok"; st.textContent = "Pro unlocked. Thank you!";
+          setPro(true); drawServices(); update();
+        } else { st.className = "status bad"; st.textContent = "That key wasn't recognised."; }
+      })
+      .catch(function () { st.className = "status bad"; st.textContent = "Couldn't reach the license server. Try again."; });
+  }
+
+  QP_TEMPLATES.forEach(function (t) {
+    var b = document.createElement("button");
+    b.textContent = t.name;
+    b.addEventListener("click", function () {
+      var keep = { email: state.email, phone: state.phone, pro: state.pro, color: state.color, area: state.area };
+      state = Object.assign(JSON.parse(JSON.stringify(t.config)), keep);
+      fillForm(); update();
+    });
+    $("templates").appendChild(b);
+  });
+
+  FIELDS.concat(["bundleN", "bundlePct", "hideRates"]).forEach(function (k) { $(k).addEventListener("input", update); });
+  $("add").addEventListener("click", function () { (state.services = state.services || []).push({ n: "", u: "sqft", r: 0 }); drawServices(); update(); });
+  $("verify").addEventListener("click", verify);
+  $("qrBtn").addEventListener("click", function () { $("qrBox").hidden = !$("qrBox").hidden; if (!$("qrBox").hidden) drawQR($("link").textContent); });
+  document.querySelectorAll("[data-copy]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var text = $(b.getAttribute("data-copy")).textContent;
+      (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).then(function () {
+        var t = b.textContent; b.textContent = "Copied!"; setTimeout(function () { b.textContent = t; }, 1400);
+      }).catch(function () { window.prompt("Copy this:", text); });
+    });
+  });
+  if (QP_STORE.checkoutUrl) $("buy").href = QP_STORE.checkoutUrl;
+
+  state = load();
+  fillForm();
+  update();
+})();
+</script>
+</body>
+</html>
